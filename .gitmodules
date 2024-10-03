@@ -1,0 +1,9 @@
+[submodule "modules/somalier"]
+	path = modules/somalier
+	url = https://github.com/jingxiant/targeted_analysis.git
+[submodule "modules/bwa"]
+	path = modules/bwa
+	url = https://github.com/jingxiant/prism-sdgmc-modules.git
+[submodule "submodules"]
+	path = submodules
+	url = https://github.com/jingxiant/prism-sdgmc-modules.git
