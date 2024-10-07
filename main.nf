@@ -65,6 +65,8 @@ somalier_prism_files = file(params.somalier_prism_files)
 slivar_gnomadpath = file(params.slivar_gnomadpath)
 slivar_jspath = file(params.slivar_jspath)
 gff3_file = file(params.gff_path)
+tsv_to_xlsx_script = file(params.tsv_to_xlsx)
+column_file = file(params.colfile)
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -170,6 +172,8 @@ workflow PRISM_TARGETED_ANALYSIS {
         gff3_file,
         slivar_gnomadpath,
         slivar_jspath,
+        tsv_to_xlsx_script,
+        column_file
         
         ch_versions
     )
