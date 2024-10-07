@@ -92,7 +92,7 @@ def getLibraryId( file ) {
 //        file.split(/\//)[-1].split(/_/)[0]
 //}
 
-include {TARGETED_ANALYSIS} from "./workflows/targeted_analysis"
+include {TARGETED_ANALYSIS} from "./workflows/targeted_family_analysis"
 
 workflow PRISM_TARGETED_ANALYSIS {
 
