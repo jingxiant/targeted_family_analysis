@@ -59,6 +59,9 @@ check_sample_stats_script = file(params.check_sample_stats_script)
 rmd_template = file(params.report_template)
 verifybamid_resources = file(params.verifybamid_resources_wes)
 pedfile = file(params.pedfile)
+somalier_sites = file(params.somalier_sites)
+somalier_onekg_files = file(params.somalier_onekg_files)
+somalier_prism_files = file(params.somalier_prism_files)
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
