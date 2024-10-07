@@ -1,0 +1,129 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://github.com/jingxiant/targeted_analysis/nextflow_schema.json",
+    "title": "Nextflow pipeline parameters",
+    "description": "This pipeline uses Nextflow and processes some kind of data. The JSON Schema was built using the nf-core pipeline schema builder.",
+    "type": "object",
+    "definitions": {
+        "input_output_options": {
+            "title": "Input/output options",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "input": {
+                    "type": "string",
+                    "description": "Path to FASTQ files."
+                },
+                "fastq_file_pattern":{
+                    "type": "string",
+                    "description": "Pattern to read fastq file(s).",
+                    "default": "*_R{1,2}.{fq,fastq}.gz"
+                },
+                "genotyping_mode": {
+                    "type": "string",
+                    "description": "Specifies the genotyping approach to be used in the analysis",
+                    "enum": [
+                        "single",
+                        "joint",
+                        "family"
+                    ]
+                },
+                "proband": {
+                    "type": "string",
+                    "description": "Proband ID."
+                },
+                "timestamp": {
+                    "type": "string",
+                    "description": "The date the analysis occured. (eg. 2024-09-30)"
+                },
+                "publishdir": {
+                    "type": "string",
+                    "description": "Path to output directory where the results will be saved.",
+                    "default": "./results"
+                },
+                "pattern": {
+                    "type": "string",
+                    "default": "_",
+                    "description": "The character used to split the string and extract the sample name."
+                },
+                "join_number": {
+                    "type": "string",
+                    "description": "An index used to specify which parts of the split string to concatenate back together to form the sample name.",
+                    "default": 0
+                },
+                "params_file": {
+                    "type": "string",
+                    "description": "The file containing parameters used for the analysis, which is essential for generating the log.",
+                    "default": "./params.yaml"
+                }
+            },
+            "required": [
+                "genotyping_mode",
+                "proband",
+                "timestamp",
+                "pattern",
+                "join_number",
+                "params_file"
+            ]
+        },
+        "target_bed": {
+            "title": "Target bed files",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "target_bed": {
+                    "type": "string",
+                    "description": "Target bed file (padded).",
+                    "default": "/prism_data5/share/KKH_Repository/Carrier_Screening/Target/Agilent_Regions_Mod_V3.Padded.bed"
+                },
+                "target_bed_covered": {
+                    "type": "string",
+                    "description": "Target bed file (covered).",
+                    "default": "/prism_data5/share/KKH_Repository/Carrier_Screening/Target/Agilent_Regions_Mod_V3.Covered.bed"
+                }
+            },
+            "required": [
+                "target_bed",
+                "target_bed_covered"
+            ]
+        },
+        "exomedepth": {
+            "title": "ExomeDepth",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+              "exomedepth_target_bed": {
+                "type": "string",
+                "default": "/prism_data4/share/PRISM_Resources/Exomedepth/MappibilityScore_Filtering/exon.hg38.new.mappibilityScore.mt075.withMendeliomeGenes_lt075.first4col.changedSymbol.bed"
+                },
+              "exomedepth_gene_bed": {
+                "type": "string",
+                "default": "/prism_data4/share/PRISM_Resources/Exomedepth/change_symbol_bed/gene.hg38.new.v2.uniq.bed"
+                },
+              "exomedepth_control": {
+                "type": "string",
+                "default": "/prism_data5/share/jingxian/test_githhub_bwa/exomedepth_controls/*.{bam,bai}"
+                }
+            },
+            "required": [
+                "exomedepth_target_bed",
+                "exomedepth_gene_bed",
+                "exomedepth_control"
+            ]
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/input_output_options"
+        },
+        {
+            "$ref": "#/definitions/target_bed"
+        },
+        {
+            "$ref": "#/definitions/exomedepth"
+        }
+    ]
+}
