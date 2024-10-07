@@ -251,6 +251,7 @@ workflow TARGETED_ANALYSIS {
             somalier_onekg_files,
             somalier_prism_files
         )
+    }
     else{
         println "Genotyping mode is not set to 'family'. Skipping SOMALIER process."
     }
