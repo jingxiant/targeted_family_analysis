@@ -202,7 +202,7 @@ workflow TARGETED_ANALYSIS {
 
     ch_for_exomedepth_postprocess.view()
     EXOMEDEPTH_POSTPROCESS.out.exomedepth_ch.view()
-    ch_for_exomedepth_postprocess.join(EXOMEDEPTH_POSTPROCESS.out.exomedepth_ch, key: 0).view()
+    ch_for_exomedepth_postprocess.join(EXOMEDEPTH_POSTPROCESS.out.exomedepth_ch, by: 0).view()
 
     //ch_merged_filtered_tsv_for_gseapy = EXOMEDEPTH_POSTPROCESS.out.exomedepth_del_tsv_forgseapy.join(EXOMEDEPTH_POSTPROCESS.out.exomedepth_dup_tsv_forgseapy)
     ch_merged_filtered_del_tsv_for_gseapy = EXOMEDEPTH_POSTPROCESS.out.exomedepth_del_tsv_forgseapy
