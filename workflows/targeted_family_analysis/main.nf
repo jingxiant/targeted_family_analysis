@@ -8,20 +8,20 @@
 // MODULE: Loaded from modules/
 //
 
-include { BWA_ALIGN_READS } from "../../subworkflows/align_bwa"
-include { GATK_BEST_PRACTICES } from "../../subworkflows/gatk_best_practices"
-include { VCF_FILTER_AND_DECOMPOSE } from "../../subworkflows/vcf_filter_and_decompose"
-include { VEP_ANNOTATE } from "../../subworkflows/vep_annotation"
-include { AUTOSOLVE_MULTISAMPLE } from "../../subworkflows/autosolve/autosolve_multisample"
-include { BAM_QC } from "../../subworkflows/bam_qc"
-include { EXOMEDEPTH_CNV_CALLING } from "../../subworkflows/exomedepth"
-include { SVAFOTATE } from "../../subworkflows/svafotate"
-include { EXOMEDEPTH_POSTPROCESS } from "../../subworkflows/exomedepth_postprocess"
-include { GSEAPY } from "../../subworkflows/gseapy"
+include { BWA_ALIGN_READS } from "../../prism-sdgmc-modules/subworkflows/align_bwa"
+include { GATK_BEST_PRACTICES } from "../../prism-sdgmc-modules/subworkflows/gatk_best_practices"
+include { VCF_FILTER_AND_DECOMPOSE } from "../../prism-sdgmc-modules/subworkflows/vcf_filter_and_decompose"
+include { VEP_ANNOTATE } from "../../prism-sdgmc-modules/subworkflows/vep_annotation"
+include { AUTOSOLVE_MULTISAMPLE } from "../../prism-sdgmc-modules/subworkflows/autosolve/autosolve_multisample"
+include { BAM_QC } from "../../prism-sdgmc-modules/subworkflows/bam_qc"
+include { EXOMEDEPTH_CNV_CALLING } from "../../prism-sdgmc-modules/subworkflows/exomedepth"
+include { SVAFOTATE } from "../../prism-sdgmc-modules/subworkflows/svafotate"
+include { EXOMEDEPTH_POSTPROCESS } from "../../prism-sdgmc-modules/subworkflows/exomedepth_postprocess"
+include { GSEAPY } from "../../prism-sdgmc-modules/subworkflows/gseapy"
 include { SMACA } from "../../subworkflows/smaca"
-include { MITOCALLER_ANALYSIS } from "../../subworkflows/mitocaller"
-include { CHECK_FILE_VALIDITY } from "../../subworkflows/file_check"
-include { GENERATE_REPORT } from "../../subworkflows/generate_report"
+include { MITOCALLER_ANALYSIS } from "../../prism-sdgmc-modules/subworkflows/mitocaller"
+include { CHECK_FILE_VALIDITY } from "../../prism-sdgmc-modules/subworkflows/file_check"
+include { GENERATE_REPORT } from "../../prism-sdgmc-modules/subworkflows/generate_report"
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
