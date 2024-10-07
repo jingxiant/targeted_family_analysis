@@ -64,7 +64,7 @@ somalier_onekg_files = file(params.somalier_onekg_files)
 somalier_prism_files = file(params.somalier_prism_files)
 slivar_gnomadpath = file(params.slivar_gnomadpath)
 slivar_jspath = file(params.slivar_jspath)
-gff3 = file(params.gff_path)
+gff3_file = file(params.gff_path)
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
