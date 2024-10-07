@@ -180,7 +180,7 @@ workflow TARGETED_ANALYSIS {
         ch_for_exomedepth_postprocess = VEP_ANNOTATE.out.vep_tsv_filtered_without_samplename
     }
 
-    # Change the type of key from integer to string
+    // Change the type of key from integer to string
     ch_for_exomedepth_postprocess
         .map { key, file -> [key.toString(), file] }
         .set { ch_for_exomedepth_postprocess_edited }
