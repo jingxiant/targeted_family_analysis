@@ -22,6 +22,7 @@ include { SMACA } from "../../prism-sdgmc-modules/subworkflows/smaca"
 include { MITOCALLER_ANALYSIS } from "../../prism-sdgmc-modules/subworkflows/mitocaller"
 include { SOMALIER } from "../../prism-sdgmc-modules/subworkflows/somalier"
 include { SLIVAR_ANALYSIS} from "../../prism-sdgmc-modules/subworkflows/slivar"
+include { AUTOSOLVE } from "../../prism-sdgmc-modules/subworkflows/autosolve"
 include { CHECK_FILE_VALIDITY } from "../../prism-sdgmc-modules/subworkflows/file_check"
 include { GENERATE_REPORT } from "../../prism-sdgmc-modules/subworkflows/generate_report"
 
@@ -137,7 +138,7 @@ workflow TARGETED_ANALYSIS {
     )
     ch_versions = ch_versions.mix(VEP_ANNOTATE.out.versions)
 
-    ch_vep_tsv_filtered = VEP_ANNOTATE.out.vep_tsv_filtered.groupTuple()
+    /*ch_vep_tsv_filtered = VEP_ANNOTATE.out.vep_tsv_filtered.groupTuple()
     AUTOSOLVE_MULTISAMPLE(
         ch_vep_tsv_filtered,
         autosolve_script,
@@ -145,7 +146,7 @@ workflow TARGETED_ANALYSIS {
         panel_monoallelic,
         panel_biallelic,
         mutation_spectrum
-    )
+    )*/
 
     ch_bqsr_bam = GATK_BEST_PRACTICES.out.bqsr_bam
     BAM_QC(
@@ -263,6 +264,24 @@ workflow TARGETED_ANALYSIS {
         mane_transcript
     )
 
+    //AUTOSOLVE
+    if(params.genotyping_mode == 'single' || params.genotyping_mode == 'joint'){
+        ch_vep_filtered_tsv_for_autosolve = VEP_ANNOTATE.out.vep_tsv_filtered.groupTuple()
+    }else if(params.genotyping_mode == 'family'){
+        ch_vep_filtered_tsv_for_autosolve = SLIVAR_ANALYSIS.out.slivar_tsv_tier2.groupTuple()
+    } 
+
+    AUTOSOLVE(
+        ch_vep_filtered_tsv_for_autosolve,
+        pedfile,
+        autosolve_script,
+        clingen,
+        panel_monoallelic,
+        panel_biallelic,
+        mutation_spectrum
+    )
+
+
     tool_versions_ch = ch_versions.collectFile(name: 'versions.log', newLine: true, sort: false)
 /*
     //CHECK_FILE_VALIDITY(tool_versions_ch, modify_versions_log_script, parameters_file, BAM_QC.out.depth_of_coverage_stats, VEP_ANNOTATE.out.vep_tsv_filtered, VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf, check_file_status_script, tabulate_samples_quality_script, check_sample_stats_script)
@@ -332,7 +351,7 @@ workflow TARGETED_ANALYSIS {
         VEP_ANNOTATE.out.vep_tsv
         VEP_ANNOTATE.out.vep_tsv_filtered
         VEP_ANNOTATE.out.vep_tsv_filtered_highqual
-        AUTOSOLVE_MULTISAMPLE.out.autosolve_tsv
+        //AUTOSOLVE_MULTISAMPLE.out.autosolve_tsv
         BAM_QC.out.qualimap_stats
         BAM_QC.out.depth_of_coverage_stats
         BAM_QC.out.verifybam_id_output
@@ -354,6 +373,7 @@ workflow TARGETED_ANALYSIS {
         SOMALIER.out.somalier_ancestry_output
         SOMALIER.out.somalier_relate_output
         SLIVAR_ANALYSIS.out.annotated_slivar_output
+        AUTOSOLVE.out.autosolve_output_tsv
 //        CHECK_FILE_VALIDITY.out.version_txt
 //        CHECK_FILE_VALIDITY.out.params_log
 //        CHECK_FILE_VALIDITY.out.check_file_validity_wes_output
