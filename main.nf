@@ -62,6 +62,9 @@ pedfile = file(params.pedfile)
 somalier_sites = file(params.somalier_sites)
 somalier_onekg_files = file(params.somalier_onekg_files)
 somalier_prism_files = file(params.somalier_prism_files)
+slivar_gnomadpath = file(params.slivar_gnomadpath)
+slivar_jspath = file(params.slivar_jspath)
+gff3 = file(params.gff_path)
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -164,6 +167,9 @@ workflow PRISM_TARGETED_ANALYSIS {
         somalier_sites,
         somalier_onekg_files,
         somalier_prism_files,
+        gff3_file,
+        slivar_gnomadpath,
+        slivar_jspath,
         
         ch_versions
     )
