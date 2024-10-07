@@ -173,7 +173,7 @@ workflow PRISM_TARGETED_ANALYSIS {
         slivar_gnomadpath,
         slivar_jspath,
         tsv_to_xlsx_script,
-        column_file
+        column_file,
         
         ch_versions
     )
