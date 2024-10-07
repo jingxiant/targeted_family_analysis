@@ -200,6 +200,8 @@ workflow TARGETED_ANALYSIS {
         pedfile
     )
 
+    ch_for_exomedepth_postprocess.view()
+    EXOMEDEPTH_POSTPROCESS.out.exomedepth_ch.view()
     ch_for_exomedepth_postprocess.join(EXOMEDEPTH_POSTPROCESS.out.exomedepth_ch).view()
 
     //ch_merged_filtered_tsv_for_gseapy = EXOMEDEPTH_POSTPROCESS.out.exomedepth_del_tsv_forgseapy.join(EXOMEDEPTH_POSTPROCESS.out.exomedepth_dup_tsv_forgseapy)
