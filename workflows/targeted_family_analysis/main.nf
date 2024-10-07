@@ -20,6 +20,7 @@ include { EXOMEDEPTH_POSTPROCESS } from "../../prism-sdgmc-modules/subworkflows/
 include { GSEAPY } from "../../prism-sdgmc-modules/subworkflows/gseapy"
 include { SMACA } from "../../prism-sdgmc-modules/subworkflows/smaca"
 include { MITOCALLER_ANALYSIS } from "../../prism-sdgmc-modules/subworkflows/mitocaller"
+include { SOMALIER } from "../../prism-sdgmc-modules/subworkflow/somalier"
 include { CHECK_FILE_VALIDITY } from "../../prism-sdgmc-modules/subworkflows/file_check"
 include { GENERATE_REPORT } from "../../prism-sdgmc-modules/subworkflows/generate_report"
 
@@ -83,6 +84,9 @@ workflow TARGETED_ANALYSIS {
     rmd_template
     verifybamid_resources
     pedfile
+    somalier_sites
+    somalier_onekg_files
+    somalier_prism_files
 
     ch_versions
 
@@ -223,6 +227,18 @@ workflow TARGETED_ANALYSIS {
         mitimpact
     )
 
+    ch_bqsr_bam_somalier = GATK_BEST_PRACTICES.out.bqsr_bam
+    SOMALIER(
+        ch_bqsr_bam_somalier,
+        ref_genome,
+        ref_genome_index,
+        somalier_sites,
+        params.proband,
+        pedfile,
+        somalier_onekg_files,
+        somalier_prism_files
+    )
+
     tool_versions_ch = ch_versions.collectFile(name: 'versions.log', newLine: true, sort: false)
 /*
     //CHECK_FILE_VALIDITY(tool_versions_ch, modify_versions_log_script, parameters_file, BAM_QC.out.depth_of_coverage_stats, VEP_ANNOTATE.out.vep_tsv_filtered, VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf, check_file_status_script, tabulate_samples_quality_script, check_sample_stats_script)
@@ -311,6 +327,8 @@ workflow TARGETED_ANALYSIS {
         MITOCALLER_ANALYSIS.out.mitocaller_output_summary
         MITOCALLER_ANALYSIS.out.mitocaller_candidate_variants
         MITOCALLER_ANALYSIS.out.mitocaller_filtered_output
+        SOMALIER.out.somalier_ancestry_output
+        SOMALIER.out.somalier_relate_output
 //        CHECK_FILE_VALIDITY.out.version_txt
 //        CHECK_FILE_VALIDITY.out.params_log
 //        CHECK_FILE_VALIDITY.out.check_file_validity_wes_output
