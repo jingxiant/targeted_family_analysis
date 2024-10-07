@@ -4,9 +4,6 @@
 [submodule "modules/bwa"]
 	path = modules/bwa
 	url = https://github.com/jingxiant/prism-sdgmc-modules.git
-[submodule "submodules"]
-	path = submodules
-	url = https://github.com/jingxiant/prism-sdgmc-modules.git
 [submodule "prism-sdgmc-modules"]
 	path = prism-sdgmc-modules
 	url = https://github.com/jingxiant/prism-sdgmc-modules.git
