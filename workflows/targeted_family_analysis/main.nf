@@ -288,8 +288,8 @@ workflow TARGETED_ANALYSIS {
     ch_filtered_tsv_for_xlsx_conversion = VEP_ANNOTATE.out.vep_tsv_filtered
     ch_filtered_tsv_slivar_for_xlsx_conversion = SLIVAR_ANALYSIS.out.slivar_tsv.collect()
     TSV_TO_XLSX(
-        ch_filtered_tsv_for_xlsx_conversion, 
         ch_filtered_tsv_slivar_for_xlsx_conversion,
+        ch_filtered_tsv_for_xlsx_conversion, 
         tsv_to_xlsx_script, 
         column_file
     )
