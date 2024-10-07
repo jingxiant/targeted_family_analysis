@@ -191,6 +191,10 @@ workflow TARGETED_ANALYSIS {
     jx_temp_ch.join(ch_for_exomedepth_postprocess)
     .view()
 
+    jx_temp_ch.map { key, _ -> println("Key in jx_temp_ch: ${key} (type: ${key.getClass()})") }.view()
+    ch_for_exomedepth_postprocess.map { key, _ -> println("Key in ch_for_exomedepth_postprocess: ${key} (type: ${key.getClass()})") }.view()
+
+
     ch_merged_tsv = EXOMEDEPTH_CNV_CALLING.out.exomedepth_merged_tsv
     EXOMEDEPTH_POSTPROCESS(
         ch_merged_tsv,
