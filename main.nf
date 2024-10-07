@@ -161,6 +161,9 @@ workflow PRISM_TARGETED_ANALYSIS {
         rmd_template,
         verifybamid_resources,
         pedfile,
+        somalier_sites,
+        somalier_onekg_files,
+        somalier_prism_files,
         
         ch_versions
     )
