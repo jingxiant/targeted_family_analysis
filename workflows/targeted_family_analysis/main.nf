@@ -184,6 +184,7 @@ workflow TARGETED_ANALYSIS {
 
     ch_for_exomedepth_postprocess.view()
     ch_merged_tsv = EXOMEDEPTH_CNV_CALLING.out.exomedepth_merged_tsv
+    ch_merged_tsv.view()
     EXOMEDEPTH_POSTPROCESS(
         ch_merged_tsv,
         SVAFOTATE.out.svafotate_vcf,
