@@ -23,6 +23,7 @@ include { MITOCALLER_ANALYSIS } from "../../prism-sdgmc-modules/subworkflows/mit
 include { SOMALIER } from "../../prism-sdgmc-modules/subworkflows/somalier"
 include { SLIVAR_ANALYSIS} from "../../prism-sdgmc-modules/subworkflows/slivar"
 include { AUTOSOLVE } from "../../prism-sdgmc-modules/subworkflows/autosolve"
+include { TSV_TO_XLSX } from "../../prism-sdgmc-modules/subworkflows/tsv_to_xlsx_conversion"
 include { CHECK_FILE_VALIDITY } from "../../prism-sdgmc-modules/subworkflows/file_check"
 include { GENERATE_REPORT } from "../../prism-sdgmc-modules/subworkflows/generate_report"
 
@@ -92,6 +93,8 @@ workflow TARGETED_ANALYSIS {
     gff3_file
     slivar_gnomadpath
     slivar_jspath
+    tsv_to_xlsx_script
+    column_file
 
     ch_versions
 
@@ -281,6 +284,15 @@ workflow TARGETED_ANALYSIS {
         mutation_spectrum
     )
 
+    // TSV to EXCEL
+    ch_filtered_tsv_for_xlsx_conversion = VEP_ANNOTATE.out.vep_tsv_filtered
+    ch_filtered_tsv_slivar_for_xlsx_conversion = SLIVAR_ANALYSIS.out.slivar_tsv.collect()
+    TSV_TO_XLSX(
+        ch_filtered_tsv_for_xlsx_conversion, 
+        ch_filtered_tsv_slivar_for_xlsx_conversion,
+        tsv_to_xlsx_script, 
+        column_file
+    )
 
     tool_versions_ch = ch_versions.collectFile(name: 'versions.log', newLine: true, sort: false)
 /*
@@ -374,6 +386,7 @@ workflow TARGETED_ANALYSIS {
         SOMALIER.out.somalier_relate_output
         SLIVAR_ANALYSIS.out.annotated_slivar_output
         AUTOSOLVE.out.autosolve_output_tsv
+        TSV_TO_XLSX.out.excel_file
 //        CHECK_FILE_VALIDITY.out.version_txt
 //        CHECK_FILE_VALIDITY.out.params_log
 //        CHECK_FILE_VALIDITY.out.check_file_validity_wes_output
