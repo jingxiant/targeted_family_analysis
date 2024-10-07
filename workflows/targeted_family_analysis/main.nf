@@ -258,7 +258,9 @@ workflow TARGETED_ANALYSIS {
         slivar_gnomadpath,
         slivar_jspath,
         vep_cache,
-        vep_plugins
+        vep_plugins,
+        vcf_to_tsv_script,
+        mane_transcript
     )
 
     tool_versions_ch = ch_versions.collectFile(name: 'versions.log', newLine: true, sort: false)
