@@ -239,17 +239,21 @@ workflow TARGETED_ANALYSIS {
         mitimpact
     )
 
-    ch_bqsr_bam_somalier = GATK_BEST_PRACTICES.out.bqsr_bam
-    SOMALIER(
-        ch_bqsr_bam_somalier,
-        ref_genome,
-        ref_genome_index,
-        somalier_sites,
-        params.proband,
-        pedfile,
-        somalier_onekg_files,
-        somalier_prism_files
-    )
+    if (params.genotyping_mode == 'family') {
+        ch_bqsr_bam_somalier = GATK_BEST_PRACTICES.out.bqsr_bam
+        SOMALIER(
+            ch_bqsr_bam_somalier,
+            ref_genome,
+            ref_genome_index,
+            somalier_sites,
+            params.proband,
+            pedfile,
+            somalier_onekg_files,
+            somalier_prism_files
+        )
+    else{
+        println "Genotyping mode is not set to 'family'. Skipping SOMALIER process."
+    }
 
     //SLIVAR
     ch_decom_norm_vcf_forslivar = VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf
