@@ -65,6 +65,7 @@ workflow TARGETED_ANALYSIS {
     exomedepth_duplication_db
     add_svaf_script
     process_script_single
+    process_script_family
     panel
     decipher
     gene_sets
@@ -81,6 +82,7 @@ workflow TARGETED_ANALYSIS {
     check_sample_stats_script
     rmd_template
     verifybamid_resources
+    pedfile
 
     ch_versions
 
@@ -168,7 +170,7 @@ workflow TARGETED_ANALYSIS {
         svafotate_bed
     )
 
-    if(params.genotyping_mode == 'single'){
+    if(params.genotyping_mode == 'single' || params.genotyping_mode == 'family'){
         ch_for_exomedepth_postprocess = VEP_ANNOTATE.out.vep_tsv_filtered
     }else if(params.genotyping_mode == 'joint'){
         ch_for_exomedepth_postprocess = VEP_ANNOTATE.out.vep_tsv_filtered_without_samplename
@@ -184,10 +186,12 @@ workflow TARGETED_ANALYSIS {
         add_svaf_script,
         ch_for_exomedepth_postprocess,
         process_script_single,
+        process_script_family,
         panel,
         clingen,
         mutation_spectrum,
-        decipher
+        decipher,
+        pedfile
     )
 
     //ch_merged_filtered_tsv_for_gseapy = EXOMEDEPTH_POSTPROCESS.out.exomedepth_del_tsv_forgseapy.join(EXOMEDEPTH_POSTPROCESS.out.exomedepth_dup_tsv_forgseapy)
