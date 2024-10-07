@@ -12,7 +12,7 @@ include { BWA_ALIGN_READS } from "../../prism-sdgmc-modules/subworkflows/align_b
 include { GATK_BEST_PRACTICES } from "../../prism-sdgmc-modules/subworkflows/gatk_best_practices"
 include { VCF_FILTER_AND_DECOMPOSE } from "../../prism-sdgmc-modules/subworkflows/vcf_filter_and_decompose"
 include { VEP_ANNOTATE } from "../../prism-sdgmc-modules/subworkflows/vep_annotation"
-include { AUTOSOLVE_MULTISAMPLE } from "../../prism-sdgmc-modules/subworkflows/autosolve/autosolve_multisample"
+//include { AUTOSOLVE_MULTISAMPLE } from "../../prism-sdgmc-modules/subworkflows/autosolve/autosolve_multisample"
 include { BAM_QC } from "../../prism-sdgmc-modules/subworkflows/bam_qc"
 include { EXOMEDEPTH_CNV_CALLING } from "../../prism-sdgmc-modules/subworkflows/exomedepth"
 include { SVAFOTATE } from "../../prism-sdgmc-modules/subworkflows/svafotate"
