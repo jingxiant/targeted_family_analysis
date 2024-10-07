@@ -183,7 +183,7 @@ workflow TARGETED_ANALYSIS {
     }
 
     jxch_merged_tsv = EXOMEDEPTH_CNV_CALLING.out.exomedepth_merged_tsv
-    ch_for_exomedepth_postprocess.join(jxch_merged_tsv).view()
+    ch_for_exomedepth_postprocess.flatten().join(jxch_merged_tsv).view()
 
     ch_for_exomedepth_postprocess.view()
     ch_merged_tsv = EXOMEDEPTH_CNV_CALLING.out.exomedepth_merged_tsv
