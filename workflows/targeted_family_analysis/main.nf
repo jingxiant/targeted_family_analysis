@@ -247,7 +247,7 @@ workflow TARGETED_ANALYSIS {
         somalier_prism_files
     )
 
-    #SLIVAR
+    //SLIVAR
     ch_decom_norm_vcf_forslivar = VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf
     SLIVAR_ANALYSIS(
         ch_decom_norm_vcf_forslivar,
