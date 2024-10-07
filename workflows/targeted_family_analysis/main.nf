@@ -21,6 +21,7 @@ include { GSEAPY } from "../../prism-sdgmc-modules/subworkflows/gseapy"
 include { SMACA } from "../../prism-sdgmc-modules/subworkflows/smaca"
 include { MITOCALLER_ANALYSIS } from "../../prism-sdgmc-modules/subworkflows/mitocaller"
 include { SOMALIER } from "../../prism-sdgmc-modules/subworkflows/somalier"
+include { SLIVAR_ANALYSIS} from "../../prism-sdgmc-modules/subworkflows/slivar"
 include { CHECK_FILE_VALIDITY } from "../../prism-sdgmc-modules/subworkflows/file_check"
 include { GENERATE_REPORT } from "../../prism-sdgmc-modules/subworkflows/generate_report"
 
@@ -87,9 +88,11 @@ workflow TARGETED_ANALYSIS {
     somalier_sites
     somalier_onekg_files
     somalier_prism_files
+    gff3_file
+    slivar_gnomadpath
+    slivar_jspath
 
     ch_versions
-
 
     main:
 
@@ -244,6 +247,20 @@ workflow TARGETED_ANALYSIS {
         somalier_prism_files
     )
 
+    #SLIVAR
+    ch_decom_norm_vcf_forslivar = VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf
+    SLIVAR_ANALYSIS(
+        ch_decom_norm_vcf_forslivar,
+        ref_genome,
+        ref_genome_index,
+        gff3_file,
+        pedfile,
+        slivar_gnomadpath,
+        slivar_jspath,
+        vep_cache,
+        vep_plugins
+    )
+
     tool_versions_ch = ch_versions.collectFile(name: 'versions.log', newLine: true, sort: false)
 /*
     //CHECK_FILE_VALIDITY(tool_versions_ch, modify_versions_log_script, parameters_file, BAM_QC.out.depth_of_coverage_stats, VEP_ANNOTATE.out.vep_tsv_filtered, VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf, check_file_status_script, tabulate_samples_quality_script, check_sample_stats_script)
@@ -334,6 +351,7 @@ workflow TARGETED_ANALYSIS {
         MITOCALLER_ANALYSIS.out.mitocaller_filtered_output
         SOMALIER.out.somalier_ancestry_output
         SOMALIER.out.somalier_relate_output
+        SLIVAR_ANALYSIS.out.annotated_slivar_output
 //        CHECK_FILE_VALIDITY.out.version_txt
 //        CHECK_FILE_VALIDITY.out.params_log
 //        CHECK_FILE_VALIDITY.out.check_file_validity_wes_output
