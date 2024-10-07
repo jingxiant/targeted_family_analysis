@@ -184,9 +184,9 @@ workflow TARGETED_ANALYSIS {
 
     ch_for_exomedepth_postprocess.view()
     ch_merged_tsv = EXOMEDEPTH_CNV_CALLING.out.exomedepth_merged_tsv
-    ch_merged_tsv.view()
+    jxch_merged_tsv = EXOMEDEPTH_CNV_CALLING.out.exomedepth_merged_tsv
 
-    ch_merged_tsv.out.flatten()
+    jxch_merged_tsv.out.flatten()
     .map {file -> [file.simpleName, file]}
     .set { test_ch }
 
