@@ -18,7 +18,7 @@ include { EXOMEDEPTH_CNV_CALLING } from "../../prism-sdgmc-modules/subworkflows/
 include { SVAFOTATE } from "../../prism-sdgmc-modules/subworkflows/svafotate"
 include { EXOMEDEPTH_POSTPROCESS } from "../../prism-sdgmc-modules/subworkflows/exomedepth_postprocess"
 include { GSEAPY } from "../../prism-sdgmc-modules/subworkflows/gseapy"
-include { SMACA } from "../../subworkflows/smaca"
+include { SMACA } from "../../prism-sdgmc-modules/subworkflows/smaca"
 include { MITOCALLER_ANALYSIS } from "../../prism-sdgmc-modules/subworkflows/mitocaller"
 include { CHECK_FILE_VALIDITY } from "../../prism-sdgmc-modules/subworkflows/file_check"
 include { GENERATE_REPORT } from "../../prism-sdgmc-modules/subworkflows/generate_report"
