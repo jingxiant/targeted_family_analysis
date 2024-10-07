@@ -186,11 +186,11 @@ workflow TARGETED_ANALYSIS {
         add_svaf_script,
         ch_for_exomedepth_postprocess,
         process_script_single,
-        process_script_family,
         panel,
         clingen,
         mutation_spectrum,
         decipher,
+        process_script_family,
         pedfile
     )
 
