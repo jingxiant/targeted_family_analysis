@@ -224,7 +224,7 @@ workflow TARGETED_ANALYSIS {
     )
 
     tool_versions_ch = ch_versions.collectFile(name: 'versions.log', newLine: true, sort: false)
-
+/*
     //CHECK_FILE_VALIDITY(tool_versions_ch, modify_versions_log_script, parameters_file, BAM_QC.out.depth_of_coverage_stats, VEP_ANNOTATE.out.vep_tsv_filtered, VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf, check_file_status_script, tabulate_samples_quality_script, check_sample_stats_script)
     if(params.genotyping_mode == 'single'){
         ch_files_for_single_sample_check = BAM_QC.out.depth_of_coverage_stats.join(VEP_ANNOTATE.out.vep_tsv_filtered).join(VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf).join(BAM_QC.out.edited_qualimap_output)
@@ -279,7 +279,7 @@ workflow TARGETED_ANALYSIS {
         BAM_QC.out.depth_of_coverage_stats.flatten().collect(),
         CHECK_FILE_VALIDITY.out.check_file_validity_wes_output
     )
-
+*/
     emit:
         GATK_BEST_PRACTICES.out.bqsr_recal_table
         GATK_BEST_PRACTICES.out.bqsr_bam
@@ -311,10 +311,10 @@ workflow TARGETED_ANALYSIS {
         MITOCALLER_ANALYSIS.out.mitocaller_output_summary
         MITOCALLER_ANALYSIS.out.mitocaller_candidate_variants
         MITOCALLER_ANALYSIS.out.mitocaller_filtered_output
-        CHECK_FILE_VALIDITY.out.version_txt
-        CHECK_FILE_VALIDITY.out.params_log
-        CHECK_FILE_VALIDITY.out.check_file_validity_wes_output
-        GENERATE_REPORT.out.sample_report
+//        CHECK_FILE_VALIDITY.out.version_txt
+//        CHECK_FILE_VALIDITY.out.params_log
+//        CHECK_FILE_VALIDITY.out.check_file_validity_wes_output
+//        GENERATE_REPORT.out.sample_report
 
         versions = ch_versions
 }
