@@ -180,12 +180,12 @@ workflow TARGETED_ANALYSIS {
         ch_for_exomedepth_postprocess = VEP_ANNOTATE.out.vep_tsv_filtered_without_samplename
     }
 
-    ch_for_exomedepth_postprocess.view()
+    # Change the type of key from integer to string
     ch_for_exomedepth_postprocess
-    .map { key, file -> [key.toString(), file] }
-    .set {ch_for_exomedepth_postprocess_edited}
+        .map { key, file -> [key.toString(), file] }
+        .set { ch_for_exomedepth_postprocess_edited }
 
-    jxch_merged_tsv = EXOMEDEPTH_CNV_CALLING.out.exomedepth_merged_tsv
+    /*jxch_merged_tsv = EXOMEDEPTH_CNV_CALLING.out.exomedepth_merged_tsv
     jxch_merged_tsv.flatten()
     .map {file -> [file.simpleName, file]}
     .set {jx_temp_ch}
@@ -197,7 +197,7 @@ workflow TARGETED_ANALYSIS {
 
     jx_temp_ch.map { key, _ -> println("Key in jx_temp_ch: ${key} (type: ${key.getClass()})") }.view()
     ch_for_exomedepth_postprocess_edited.map { key, _ -> println("Key in ch_for_exomedepth_postprocess_edited: ${key} (type: ${key.getClass()})") }.view()
-
+*/
 
     ch_merged_tsv = EXOMEDEPTH_CNV_CALLING.out.exomedepth_merged_tsv
     EXOMEDEPTH_POSTPROCESS(
@@ -207,7 +207,7 @@ workflow TARGETED_ANALYSIS {
         exomedepth_deletion_db,
         exomedepth_duplication_db,
         add_svaf_script,
-        ch_for_exomedepth_postprocess,
+        ch_for_exomedepth_postprocess_edited,
         process_script_single,
         panel,
         clingen,
