@@ -183,14 +183,11 @@ workflow TARGETED_ANALYSIS {
     ch_for_exomedepth_postprocess.view()
     ch_for_exomedepth_postprocess
     .map { key, file -> [key.toString(), file] }
-    .view()
-   /* jxch_merged_tsv = EXOMEDEPTH_CNV_CALLING.out.exomedepth_merged_tsv
+    .set {ch_for_exomedepth_postprocess_edited}
+    jxch_merged_tsv = EXOMEDEPTH_CNV_CALLING.out.exomedepth_merged_tsv
     jxch_merged_tsv.flatten()
     .map {file -> [file.simpleName, file]}
     .set {jx_temp_ch}
-
-    .map { key, file -> [key.toString(), file] }  // Ensures all keys are strings
-
 
     jx_temp_ch.view()
     
@@ -198,7 +195,7 @@ workflow TARGETED_ANALYSIS {
     .view()
 
     jx_temp_ch.map { key, _ -> println("Key in jx_temp_ch: ${key} (type: ${key.getClass()})") }.view()
-    ch_for_exomedepth_postprocess.map { key, _ -> println("Key in ch_for_exomedepth_postprocess: ${key} (type: ${key.getClass()})") }.view()
+    ch_for_exomedepth_postprocess_edited.map { key, _ -> println("Key in ch_for_exomedepth_postprocess_edited: ${key} (type: ${key.getClass()})") }.view()
 */
 
     ch_merged_tsv = EXOMEDEPTH_CNV_CALLING.out.exomedepth_merged_tsv
