@@ -20,7 +20,7 @@ include { EXOMEDEPTH_POSTPROCESS } from "../../prism-sdgmc-modules/subworkflows/
 include { GSEAPY } from "../../prism-sdgmc-modules/subworkflows/gseapy"
 include { SMACA } from "../../prism-sdgmc-modules/subworkflows/smaca"
 include { MITOCALLER_ANALYSIS } from "../../prism-sdgmc-modules/subworkflows/mitocaller"
-include { SOMALIER } from "../../prism-sdgmc-modules/subworkflow/somalier"
+include { SOMALIER } from "../../prism-sdgmc-modules/subworkflows/somalier"
 include { CHECK_FILE_VALIDITY } from "../../prism-sdgmc-modules/subworkflows/file_check"
 include { GENERATE_REPORT } from "../../prism-sdgmc-modules/subworkflows/generate_report"
 
