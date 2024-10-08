@@ -29,6 +29,11 @@
                         "family"
                     ]
                 },
+                "small_panel": {
+                    "type": "boolean",
+                    "description": "Indicates whether the panel used for genotyping is small. Default: false",
+                    "default": false
+                }
                 "pedfile": {
                     "type": "string",
                     "description": "PED file.",
