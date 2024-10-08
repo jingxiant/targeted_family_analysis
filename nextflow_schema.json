@@ -29,6 +29,11 @@
                         "family"
                     ]
                 },
+                "pedfile": {
+                    "type": "string",
+                    "description": "PED file.",
+                    "default": "null"
+                },
                 "proband": {
                     "type": "string",
                     "description": "Proband ID."
