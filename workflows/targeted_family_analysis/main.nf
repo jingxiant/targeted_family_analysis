@@ -297,32 +297,18 @@ workflow TARGETED_ANALYSIS {
     tool_versions_ch = ch_versions.collectFile(name: 'versions.log', newLine: true, sort: false)
 
     ch_for_filecheck_processed = Channel.empty()
+    if(params.genotyping_mode == 'single'){
+        ch_files_for_single_sample_check = BAM_QC.out.depth_of_coverage_stats
+                                               .join(VEP_ANNOTATE.out.vep_tsv_filtered)
+                                               .join(VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf)
+                                               .join(BAM_QC.out.edited_qualimap_output)
+        ch_for_filecheck_processed = ch_files_for_single_sample_check.map { tuple ->
+                                                    def sampleName = tuple[0]
+                                                    def allFiles = tuple[1..-1].collectMany { it instanceof List ? it : [it] }
+                                                    [sampleName, allFiles]
+        }
+    }
 
-    // Check the contents and types of `depth_of_coverage_stats`
-    BAM_QC.out.depth_of_coverage_stats.map { entry ->
-        println "depth_of_coverage_stats Key Type: ${entry.getClass()} | Value: ${entry}"
-        return entry
-    }.view()
-    
-    // Check the contents and types of `vep_tsv_filtered`
-    VEP_ANNOTATE.out.vep_tsv_filtered.map { entry ->
-        println "vep_tsv_filtered Key Type: ${entry.getClass()} | Value: ${entry}"
-        return entry
-    }.view()
-    
-    // Check the contents and types of `decom_norm_vcf`
-    VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf.map { entry ->
-        println "decom_norm_vcf Key Type: ${entry.getClass()} | Value: ${entry}"
-        return entry
-    }.view()
-    
-    // Check the contents and types of `edited_qualimap_output`
-    BAM_QC.out.edited_qualimap_output.map { entry ->
-        println "edited_qualimap_output Key Type: ${entry.getClass()} | Value: ${entry}"
-        return entry
-    }.view()
-
-    
     /*if(params.genotyping_mode == 'single'){
         if(params.small_panel == 'true'){
             ch_files_for_single_sample_check = BAM_QC.out.depth_of_coverage_stats
@@ -343,7 +329,7 @@ workflow TARGETED_ANALYSIS {
                                                     def allFiles = tuple[1..-1].collectMany { it instanceof List ? it : [it] }
                                                     [sampleName, allFiles]
                                          }
-        }
+    }*/
 
 
     if(params.genotyping_mode == 'joint' || params.genotyping_mode == 'family'){
@@ -388,7 +374,7 @@ workflow TARGETED_ANALYSIS {
         CHECK_FILE_VALIDITY.out.version_txt,
         BAM_QC.out.depth_of_coverage_stats.flatten().collect(),
         CHECK_FILE_VALIDITY.out.check_file_validity_wes_output
-    )*/
+    )
 
     emit:
         GATK_BEST_PRACTICES.out.bqsr_recal_table
@@ -426,10 +412,10 @@ workflow TARGETED_ANALYSIS {
         SLIVAR_ANALYSIS.out.annotated_slivar_output
         AUTOSOLVE.out.autosolve_output_tsv
         TSV_TO_XLSX.out.excel_file
-        //CHECK_FILE_VALIDITY.out.version_txt
-        //CHECK_FILE_VALIDITY.out.params_log
-        //CHECK_FILE_VALIDITY.out.check_file_validity_wes_output
-        //GENERATE_REPORT.out.sample_report
+        CHECK_FILE_VALIDITY.out.version_txt
+        CHECK_FILE_VALIDITY.out.params_log
+        CHECK_FILE_VALIDITY.out.check_file_validity_wes_output
+        GENERATE_REPORT.out.sample_report
 
         versions = ch_versions
 }
