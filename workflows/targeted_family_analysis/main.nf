@@ -302,7 +302,7 @@ workflow TARGETED_ANALYSIS {
     VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf.view()
     BAM_QC.out.edited_qualimap_output.view()
     
-    if(params.genotyping_mode == 'single'){
+    /*if(params.genotyping_mode == 'single'){
         if(params.small_panel == 'true'){
             ch_files_for_single_sample_check = BAM_QC.out.depth_of_coverage_stats
                                                .join(VEP_ANNOTATE.out.vep_tsv_filtered)
@@ -344,7 +344,7 @@ workflow TARGETED_ANALYSIS {
             BAM_QC.out.edited_qualimap_output.collect(),
             SLIVAR_ANALYSIS.out.slivar_tsv.collect(),
             SOMALIER.out.somalier_relate_output.collect(),
-    )
+    )*/
 
     if(params.genotyping_mode == 'single'){
         ch_for_rmarkdown_single_sample = CHECK_FILE_VALIDITY.out.check_file_validity_wes_output.join(BAM_QC.out.depth_of_coverage_stats).combine(CHECK_FILE_VALIDITY.out.version_txt)
