@@ -295,8 +295,7 @@ workflow TARGETED_ANALYSIS {
     )
 
     tool_versions_ch = ch_versions.collectFile(name: 'versions.log', newLine: true, sort: false)
-/*
-    //CHECK_FILE_VALIDITY(tool_versions_ch, modify_versions_log_script, parameters_file, BAM_QC.out.depth_of_coverage_stats, VEP_ANNOTATE.out.vep_tsv_filtered, VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf, check_file_status_script, tabulate_samples_quality_script, check_sample_stats_script)
+
     if(params.genotyping_mode == 'single'){
         ch_files_for_single_sample_check = BAM_QC.out.depth_of_coverage_stats.join(VEP_ANNOTATE.out.vep_tsv_filtered).join(VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf).join(BAM_QC.out.edited_qualimap_output)
         ch_for_filecheck_processed = ch_files_for_single_sample_check.map { tuple ->
@@ -306,7 +305,7 @@ workflow TARGETED_ANALYSIS {
                                      }
       }
 
-    if(params.genotyping_mode == 'joint'){
+    if(params.genotyping_mode == 'joint' || params.genotyping_mode == 'family'){
         ch_for_filecheck_processed = Channel.empty()
     }
 
@@ -321,10 +320,12 @@ workflow TARGETED_ANALYSIS {
             BAM_QC.out.depth_of_coverage_stats.flatten().collect(), 
             VEP_ANNOTATE.out.vep_tsv_filtered, 
             VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf,
-            //BAM_QC.out.verifybam_id_output.flatten().collect(),
-            BAM_QC.out.edited_qualimap_output.collect()
+            BAM_QC.out.verifybam_id_output.flatten().collect(),
+            BAM_QC.out.edited_qualimap_output.collect(),
+            SLIVAR_ANALYSIS.out.slivar_tsv.collect(),
+            SOMALIER.out.somalier_relate_output.collect(),
     )
-
+/*
     if(params.genotyping_mode == 'single'){
         //ch_for_rmarkdown_single_sample = CHECK_FILE_VALIDITY.out.check_file_validity_wes_singlesample_output.join(BAM_QC.out.depth_of_coverage_stats).combine(CHECK_FILE_VALIDITY.out.version_txt)
         ch_for_rmarkdown_single_sample = CHECK_FILE_VALIDITY.out.check_file_validity_wes_output.join(BAM_QC.out.depth_of_coverage_stats).combine(CHECK_FILE_VALIDITY.out.version_txt)
