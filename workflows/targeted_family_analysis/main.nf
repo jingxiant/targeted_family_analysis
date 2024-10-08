@@ -325,9 +325,8 @@ workflow TARGETED_ANALYSIS {
             SLIVAR_ANALYSIS.out.slivar_tsv.collect(),
             SOMALIER.out.somalier_relate_output.collect(),
     )
-/*
+
     if(params.genotyping_mode == 'single'){
-        //ch_for_rmarkdown_single_sample = CHECK_FILE_VALIDITY.out.check_file_validity_wes_singlesample_output.join(BAM_QC.out.depth_of_coverage_stats).combine(CHECK_FILE_VALIDITY.out.version_txt)
         ch_for_rmarkdown_single_sample = CHECK_FILE_VALIDITY.out.check_file_validity_wes_output.join(BAM_QC.out.depth_of_coverage_stats).combine(CHECK_FILE_VALIDITY.out.version_txt)
         ch_for_rmarkdown_processed = ch_for_rmarkdown_single_sample.map { tuple ->
                                                   def sampleName = tuple[0]
@@ -336,11 +335,9 @@ workflow TARGETED_ANALYSIS {
                                     }
     }
 
-    if(params.genotyping_mode == 'joint'){
+    if(params.genotyping_mode == 'joint' || params.genotyping_mode == 'family'){
         ch_for_rmarkdown_processed = Channel.empty()
     }
-    
-    
     
     GENERATE_REPORT(
         ch_for_rmarkdown_processed,
@@ -351,7 +348,7 @@ workflow TARGETED_ANALYSIS {
         BAM_QC.out.depth_of_coverage_stats.flatten().collect(),
         CHECK_FILE_VALIDITY.out.check_file_validity_wes_output
     )
-*/
+
     emit:
         GATK_BEST_PRACTICES.out.bqsr_recal_table
         GATK_BEST_PRACTICES.out.bqsr_bam
@@ -388,10 +385,10 @@ workflow TARGETED_ANALYSIS {
         SLIVAR_ANALYSIS.out.annotated_slivar_output
         AUTOSOLVE.out.autosolve_output_tsv
         TSV_TO_XLSX.out.excel_file
-//        CHECK_FILE_VALIDITY.out.version_txt
-//        CHECK_FILE_VALIDITY.out.params_log
-//        CHECK_FILE_VALIDITY.out.check_file_validity_wes_output
-//        GENERATE_REPORT.out.sample_report
+        CHECK_FILE_VALIDITY.out.version_txt
+        CHECK_FILE_VALIDITY.out.params_log
+        CHECK_FILE_VALIDITY.out.check_file_validity_wes_output
+        GENERATE_REPORT.out.sample_report
 
         versions = ch_versions
 }
