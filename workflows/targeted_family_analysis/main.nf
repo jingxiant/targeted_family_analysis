@@ -405,10 +405,10 @@ workflow TARGETED_ANALYSIS {
         SLIVAR_ANALYSIS.out.annotated_slivar_output
         AUTOSOLVE.out.autosolve_output_tsv
         TSV_TO_XLSX.out.excel_file
-        CHECK_FILE_VALIDITY.out.version_txt
-        CHECK_FILE_VALIDITY.out.params_log
-        CHECK_FILE_VALIDITY.out.check_file_validity_wes_output
-        GENERATE_REPORT.out.sample_report
+        //CHECK_FILE_VALIDITY.out.version_txt
+        //CHECK_FILE_VALIDITY.out.params_log
+        //CHECK_FILE_VALIDITY.out.check_file_validity_wes_output
+        //GENERATE_REPORT.out.sample_report
 
         versions = ch_versions
 }
