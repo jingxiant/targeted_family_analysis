@@ -297,10 +297,31 @@ workflow TARGETED_ANALYSIS {
     tool_versions_ch = ch_versions.collectFile(name: 'versions.log', newLine: true, sort: false)
 
     ch_for_filecheck_processed = Channel.empty()
-    BAM_QC.out.depth_of_coverage_stats.view()
-    VEP_ANNOTATE.out.vep_tsv_filtered.view()
-    VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf.view()
-    BAM_QC.out.edited_qualimap_output.view()
+
+    // Check the contents and types of `depth_of_coverage_stats`
+    BAM_QC.out.depth_of_coverage_stats.map { entry ->
+        println "depth_of_coverage_stats Key Type: ${entry.getClass()} | Value: ${entry}"
+        return entry
+    }.view()
+    
+    // Check the contents and types of `vep_tsv_filtered`
+    VEP_ANNOTATE.out.vep_tsv_filtered.map { entry ->
+        println "vep_tsv_filtered Key Type: ${entry.getClass()} | Value: ${entry}"
+        return entry
+    }.view()
+    
+    // Check the contents and types of `decom_norm_vcf`
+    VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf.map { entry ->
+        println "decom_norm_vcf Key Type: ${entry.getClass()} | Value: ${entry}"
+        return entry
+    }.view()
+    
+    // Check the contents and types of `edited_qualimap_output`
+    BAM_QC.out.edited_qualimap_output.map { entry ->
+        println "edited_qualimap_output Key Type: ${entry.getClass()} | Value: ${entry}"
+        return entry
+    }.view()
+
     
     /*if(params.genotyping_mode == 'single'){
         if(params.small_panel == 'true'){
