@@ -1,5 +1,5 @@
 Introduction
 ====================
 
-PRISM targeted family analysis pipeline (for trio) 
+PRISM targeted analysis pipeline (for singleton(s) and trio(s)) 
 
