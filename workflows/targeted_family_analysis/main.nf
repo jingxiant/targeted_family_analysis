@@ -344,7 +344,7 @@ workflow TARGETED_ANALYSIS {
             BAM_QC.out.edited_qualimap_output.collect(),
             SLIVAR_ANALYSIS.out.slivar_tsv.collect(),
             SOMALIER.out.somalier_relate_output.collect(),
-    )*/
+    )
 
     if(params.genotyping_mode == 'single'){
         ch_for_rmarkdown_single_sample = CHECK_FILE_VALIDITY.out.check_file_validity_wes_output.join(BAM_QC.out.depth_of_coverage_stats).combine(CHECK_FILE_VALIDITY.out.version_txt)
@@ -367,7 +367,7 @@ workflow TARGETED_ANALYSIS {
         CHECK_FILE_VALIDITY.out.version_txt,
         BAM_QC.out.depth_of_coverage_stats.flatten().collect(),
         CHECK_FILE_VALIDITY.out.check_file_validity_wes_output
-    )
+    )*/
 
     emit:
         GATK_BEST_PRACTICES.out.bqsr_recal_table
