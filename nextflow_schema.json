@@ -38,6 +38,11 @@
                     "type": "string",
                     "description": "Proband ID."
                 },
+                "cohort": {
+                    "type": "string",
+                    "description": "Name of the cohort used for joint genotyping when 'genotyping_mode' is set to 'joint'. Ignored for other genotyping modes.",
+                    "default": "null"
+                },
                 "timestamp": {
                     "type": "string",
                     "description": "The date the analysis occured. (eg. 2024-09-30)"
