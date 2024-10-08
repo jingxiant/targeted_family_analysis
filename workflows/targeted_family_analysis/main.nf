@@ -298,15 +298,22 @@ workflow TARGETED_ANALYSIS {
 
     if(params.genotyping_mode == 'single'){
         if(params.small_panel == 'true'){
-            ch_files_for_single_sample_check = BAM_QC.out.depth_of_coverage_stats.join(VEP_ANNOTATE.out.vep_tsv_filtered).join(VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf).join(BAM_QC.out.edited_qualimap_output)
+            ch_files_for_single_sample_check = BAM_QC.out.depth_of_coverage_stats
+                                               .join(VEP_ANNOTATE.out.vep_tsv_filtered)
+                                               .join(VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf)
+                                               .join(BAM_QC.out.edited_qualimap_output)
             ch_for_filecheck_processed = ch_files_for_single_sample_check.map { tuple ->
                                                     def sampleName = tuple[0]
                                                     def allFiles = tuple[1..-1].collectMany { it instanceof List ? it : [it] }
                                                     [sampleName, allFiles]
                                          }
         }
-        else{
-            ch_files_for_single_sample_check = BAM_QC.out.depth_of_coverage_stats.join(VEP_ANNOTATE.out.vep_tsv_filtered).join(VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf).join(BAM_QC.out.verifybam_id_output).join(BAM_QC.out.edited_qualimap_output)
+        if(params.small_panel == 'false'){
+            ch_files_for_single_sample_check = BAM_QC.out.depth_of_coverage_stats
+                                               .join(VEP_ANNOTATE.out.vep_tsv_filtered)
+                                               .join(VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf)
+                                               .join(BAM_QC.out.verifybam_id_output)
+                                               .join(BAM_QC.out.edited_qualimap_output)
             ch_for_filecheck_processed = ch_files_for_single_sample_check.map { tuple ->
                                                     def sampleName = tuple[0]
                                                     def allFiles = tuple[1..-1].collectMany { it instanceof List ? it : [it] }
