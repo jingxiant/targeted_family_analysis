@@ -323,7 +323,6 @@ workflow TARGETED_ANALYSIS {
                                                .join(BAM_QC.out.verifybam_id_output)
                                                .join(BAM_QC.out.edited_qualimap_output)
         }
-        ch_files_for_single_sample_check.view()
         ch_for_filecheck_processed = ch_files_for_single_sample_check.map { tuple ->
                                                     def sampleName = tuple[0]
                                                     def allFiles = tuple[1..-1].collectMany { it instanceof List ? it : [it] }
