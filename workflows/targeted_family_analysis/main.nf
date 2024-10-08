@@ -297,7 +297,7 @@ workflow TARGETED_ANALYSIS {
     tool_versions_ch = ch_versions.collectFile(name: 'versions.log', newLine: true, sort: false)
 
     ch_for_filecheck_processed = Channel.empty()
-    if(params.genotyping_mode == 'single'){
+    if(params.genotyping_mode == 'single' && params.small_panel == 'true'){
         ch_files_for_single_sample_check = BAM_QC.out.depth_of_coverage_stats
                                                .join(VEP_ANNOTATE.out.vep_tsv_filtered)
                                                .join(VCF_FILTER_AND_DECOMPOSE.out.decom_norm_vcf)
