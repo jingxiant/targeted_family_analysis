@@ -294,7 +294,7 @@ workflow TARGETED_ANALYSIS {
         column_file
     )
 
-    tool_versions_ch = ch_versions.collectFile(name: 'versions.log', newLine: true, sort: false)
+    //tool_versions_ch = ch_versions.collectFile(name: 'versions.log', newLine: true, sort: false)
 
     ch_for_filecheck_processed = Channel.empty()
     /*if(params.genotyping_mode == 'single' && params.small_panel == true){
@@ -334,6 +334,8 @@ workflow TARGETED_ANALYSIS {
     if(params.genotyping_mode == 'joint' || params.genotyping_mode == 'family'){
         ch_for_filecheck_processed = Channel.empty()
     }
+
+    tool_versions_ch = ch_versions.collectFile(name: 'versions.log', newLine: true, sort: false)
 
     CHECK_FILE_VALIDITY(
             tool_versions_ch, 
