@@ -61,12 +61,12 @@
                 "target_bed": {
                     "type": "string",
                     "description": "Target bed file (padded).",
-                    "default": "/prism_data4/nhris/chengxi/bed/ICCNexteraV7_CardiacDxPanel_MANE_32Genes.CDS.40bp_Padding.merged.6cols.bed"
+                    "default": "/prism_data7/share/jingxian/test_cardiacpanel/ICCNexteraV7_CardiacDxPanel_MANE_32Genes.CDS.40bp_Padding.merged.6cols.bed"
                 },
                 "target_bed_covered": {
                     "type": "string",
                     "description": "Target bed file (covered).",
-                    "default": "/prism_data4/nhris/chengxi/bed/ICCNexteraV7_CardiacDxPanel_MANE_32Genes.CDS.6cols.bed"
+                    "default": "/prism_data7/share/jingxian/test_cardiacpanel/ICCNexteraV7_CardiacDxPanel_MANE_32Genes.CDS.6cols.bed"
                 }
             },
             "required": [
@@ -82,15 +82,15 @@
             "properties": {
               "exomedepth_target_bed": {
                 "type": "string",
-                "default": "/prism_data4/nhris/jingxian/ICCNexteraV7_CardiacDxPanel_MANE_32Genes.CDS.exon.bed"
+                "default": "/prism_data7/share/jingxian/test_cardiacpanel/ICCNexteraV7_CardiacDxPanel_MANE_32Genes.CDS.exon.bed"
                 },
               "exomedepth_gene_bed": {
                 "type": "string",
-                "default": "/prism_data4/nhris/resources/PRISM_Resources/Exomedepth/gene.hg38.new.v2.uniq.bed"
+                "default": "/prism_data7/share/jingxian/test_cardiacpanel/ICCNexteraV7_CardiacDxPanel_MANE_32Genes.CDS.gene.bed"
                 },
               "exomedepth_control": {
                 "type": "string",
-                "default": "/prism_data4/nhris/jingxian/exomedepth_controls/*.{bam,bai}"
+                "default": "/prism_data7/share/jingxian/test_cardiacpanel/exomedepth_controls/*.{bam,bai}"
                 }
             },
             "required": [
