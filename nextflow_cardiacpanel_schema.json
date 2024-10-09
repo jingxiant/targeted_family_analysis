@@ -1,0 +1,114 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://github.com/jingxiant/targeted_analysis/nextflow_cardiacpanel_schema.json",
+    "title": "Nextflow pipeline parameters",
+    "description": "This pipeline uses Nextflow and processes some kind of data. The JSON Schema was built using the nf-core pipeline schema builder.",
+    "type": "object",
+    "definitions": {
+        "input_output_options": {
+            "title": "Input/output options",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "input": {
+                    "type": "string",
+                    "description": "Path to FASTQ files."
+                },
+                "fastq_file_pattern":{
+                    "type": "string",
+                    "description": "Pattern to read fastq file(s).",
+                    "default": "*_R{1,2}.{fq,fastq}.gz"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "description": "The date the analysis occured. (eg. 2024-09-30)"
+                },
+                "publishdir": {
+                    "type": "string",
+                    "description": "Path to output directory where the results will be saved.",
+                    "default": "./results"
+                },
+                "pattern": {
+                    "type": "string",
+                    "default": "_",
+                    "description": "The character used to split the string and extract the sample name."
+                },
+                "join_number": {
+                    "type": "string",
+                    "description": "An index used to specify which parts of the split string to concatenate back together to form the sample name.",
+                    "default": 0
+                },
+                "params_file": {
+                    "type": "string",
+                    "description": "The file containing parameters used for the analysis, which is essential for generating the log.",
+                    "default": "./params.cardiacdxpanel.yaml"
+                }
+            },
+            "required": [
+                "timestamp",
+                "pattern",
+                "join_number",
+                "params_file"
+            ]
+        },
+        "target_bed": {
+            "title": "Target bed files",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "target_bed": {
+                    "type": "string",
+                    "description": "Target bed file (padded).",
+                    "default": "/prism_data4/nhris/chengxi/bed/ICCNexteraV7_CardiacDxPanel_MANE_32Genes.CDS.40bp_Padding.merged.6cols.bed"
+                },
+                "target_bed_covered": {
+                    "type": "string",
+                    "description": "Target bed file (covered).",
+                    "default": "/prism_data4/nhris/chengxi/bed/ICCNexteraV7_CardiacDxPanel_MANE_32Genes.CDS.6cols.bed"
+                }
+            },
+            "required": [
+                "target_bed",
+                "target_bed_covered"
+            ]
+        },
+        "exomedepth": {
+            "title": "ExomeDepth",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+              "exomedepth_target_bed": {
+                "type": "string",
+                "default": "/prism_data4/nhris/jingxian/ICCNexteraV7_CardiacDxPanel_MANE_32Genes.CDS.exon.bed"
+                },
+              "exomedepth_gene_bed": {
+                "type": "string",
+                "default": "/prism_data4/nhris/resources/PRISM_Resources/Exomedepth/gene.hg38.new.v2.uniq.bed"
+                },
+              "exomedepth_control": {
+                "type": "string",
+                "default": "/prism_data4/nhris/jingxian/exomedepth_controls/*.{bam,bai}"
+                }
+            },
+            "required": [
+                "exomedepth_target_bed",
+                "exomedepth_gene_bed",
+                "exomedepth_control"
+            ]
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/input_output_options"
+        },
+        {
+            "$ref": "#/definitions/target_bed"
+        },
+        {
+            "$ref": "#/definitions/exomedepth"
+        }
+    ]
+}
