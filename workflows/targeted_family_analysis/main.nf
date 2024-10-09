@@ -293,6 +293,7 @@ workflow TARGETED_ANALYSIS {
         tsv_to_xlsx_script, 
         column_file
     )
+    ch_versions = ch_versions.mix(TSV_TO_XLSX.out.versions)
 
     //tool_versions_ch = ch_versions.collectFile(name: 'versions.log', newLine: true, sort: false)
 
